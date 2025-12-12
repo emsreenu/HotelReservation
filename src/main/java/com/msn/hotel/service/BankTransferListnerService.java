@@ -47,15 +47,20 @@ public class BankTransferListnerService {
     }
     
     @KafkaListener(topics = "bank-transfer-payment-update", groupId = "hotel")
-    public void processMessage(String message) {
-        System.out.println("Processing: " + message);
-        BankTransferPaymentEvent event =
-              mapper.readValue(message, com.msn.hotel.model.BankTransferPaymentEvent.class);
-        String reservationId = extractReservationId(event.getTransactionDescription());
-        
-        service.confirmFromBankEvent(reservationId, event.getPaymentId());
-        registry.getListenerContainer("timerListener").stop();
-    }
+	public void processMessage(String message) {
+		System.out.println("Processing: " + message);
+		try {
+			BankTransferPaymentEvent event = mapper.readValue(message,
+					com.msn.hotel.model.BankTransferPaymentEvent.class);
+			String reservationId = extractReservationId(event.getTransactionDescription());
+
+			service.confirmFromBankEvent(reservationId, event.getPaymentId());
+			registry.getListenerContainer("timerListener").stop();
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+	}
     
 //    @Scheduled(cron = "0 0/500 * * * ?") // Every 5 minutes
     @Scheduled(fixedDelay = 500)
