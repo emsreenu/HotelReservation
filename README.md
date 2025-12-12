@@ -19,7 +19,7 @@ Project Setup
       mvn spring-boot:run
     Run the package JAR
     
-      java -jar target/HotelReservation.jar
+      java -jar target/HotelReservation-0.0.1.war
 
 To call the Endpoint:
 curl -X POST http://localhost:8080/api/echo](http://localhost:8080/reservations \
