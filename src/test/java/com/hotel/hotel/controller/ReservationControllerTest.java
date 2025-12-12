@@ -18,6 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -56,10 +57,10 @@ class ReservationControllerTest {
 
         // When: calling controller method
         ResponseEntity<Reservation> result = reservationController.createReservation(request);
-
+        System.out.println(result.getStatusCode());
         // Then: verify response
-        assertEquals(202, result.getStatusCode());
-        assertEquals("CONFIRMED", result.getBody().getStatus());
+        assertEquals(HttpStatus.ACCEPTED, result.getStatusCode());
+        assertEquals(ReservationStatus.CONFIRMED, result.getBody().getStatus());
         assertEquals("John Doe", result.getBody().getCustomerName());
 
         // Verify interaction
