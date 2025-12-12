@@ -1,31 +1,33 @@
 package com.msn.hotel.model;
 
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import lombok.Data;
 import java.time.LocalDate;
 
 import com.msn.hotel.validation.ValidDateRange;
 
-@Data
-@Entity
-public class Reservation {
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+@ValidDateRange
+public class ReservationRequest {
+
+
+    
 	
+    @NotNull(message = "Customer name cannot be empty")
 	private String customerName;
+    @Min(value = 1, message = "At least 1 customer is required")
+    @Max(value = 10, message = "Maximum 10 customers allowed")
     private int noOfCustomers;
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
     
+    @NotNull(message = "startDate name cannot be empty")
     private LocalDate startDate;
+    @NotNull(message = "endDate name cannot be empty")
     private LocalDate endDate;
     
       
@@ -36,14 +38,8 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
+//    @ValidDateRange
+//    private String dateRangeValidator;
 
 	public String getCustomerName() {
 		return customerName;
@@ -112,4 +108,6 @@ public class Reservation {
     
     
     
+
+
 }

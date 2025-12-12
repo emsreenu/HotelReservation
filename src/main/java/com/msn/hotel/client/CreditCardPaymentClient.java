@@ -1,10 +1,11 @@
-package com.msn.hotel.service;
+package com.msn.hotel.client;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
@@ -17,29 +18,13 @@ import com.msn.hotel.model.PaymentStatusRetrievalRequest;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
-@RequiredArgsConstructor
+@Component
 public class CreditCardPaymentClient {
 
-   
-//    public boolean processPayment(String reservationId, double amount) {
-//    	RestClient restClient = RestClient.builder().build();
-//    	return restClient.post()
-//                .uri("/payment/credit-card")
-//                .body(new PaymentRequest(reservationId, amount))
-//                .retrieve()
-//                .body(Boolean.class);
-//                
-//    }
-//
-////    record PaymentRequest(String reservationId, double amount) {}
-    
+     
     
     private static final String BASE_URL = "http://localhost:9000/host/credit-card-payment-api";
 
-//   // public CreditCardApiClient(RestTemplate restTemplate) {
-//        this.restTemplate = restTemplate;
-//    }
 
     public PaymentStatusResponse getPaymentStatus(String paymentReference) {
     	RestTemplate restTemplate= new RestTemplate();

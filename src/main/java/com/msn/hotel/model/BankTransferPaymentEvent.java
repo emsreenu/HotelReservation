@@ -1,8 +1,8 @@
-package com.msn.hotel.event;
+package com.msn.hotel.model;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class BankTransferPaymentEvent {
 	 private String paymentId;
 	    private String debtorAccountNumber;
