@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 public class ReservationService {
 	@Autowired
 	private ReservationRepository repo;
+	@Autowired
     private CreditCardPaymentClient creditCardClient;
 
     public Reservation create(ReservationRequest reservation) {
