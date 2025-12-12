@@ -1,5 +1,10 @@
 package com.msn.hotel.client;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -20,16 +25,18 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 public class CreditCardPaymentClient {
-
-     
-    
-    private static final String BASE_URL = "http://localhost:9000/host/credit-card-payment-api";
-
-
+	
+	
+	@Autowired
+	private Environment env;
+	private static final Logger log=LoggerFactory.getLogger(CreditCardPaymentClient.class);
     public PaymentStatusResponse getPaymentStatus(String paymentReference) {
+    	String paymentURL=env.getProperty("app.paymenturl");
     	RestTemplate restTemplate= new RestTemplate();
-        String url = BASE_URL + "/payment-status";
-
+        
+    	
+        log.info("Credit Card URL:"+paymentURL);
+       
         PaymentStatusRetrievalRequest requestBody =
                 new PaymentStatusRetrievalRequest(paymentReference);
 
@@ -42,7 +49,7 @@ public class CreditCardPaymentClient {
         try {
             ResponseEntity<PaymentStatusResponse> response =
                     restTemplate.exchange(
-                            url,
+                    		paymentURL,
                             HttpMethod.POST,
                             entity,
                             PaymentStatusResponse.class
