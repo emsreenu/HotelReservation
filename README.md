@@ -9,7 +9,7 @@ Ensure you have the following installed:
 An IDE like IntelliJ, Eclipse, or VS Code (optional)
 
 Project Setup
-1.Clone the Project(co mmand Prompt)
+1.Clone the Project(command Prompt)
 
       git clone https://github.com/emsreenu/HotelReservation.git
       cd HotelReservation
